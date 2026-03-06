@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from db.models import Booking, Table
+from db.models import Table
 
 
 def index(request):

@@ -33,7 +33,8 @@ def generate_data():
                 delta_days = random.randint(-7, 7)
                 delta_hours = random.randint(0, 23)
                 delta_minutes = random.choice([0, 15, 30, 45])
-                date = (now + datetime.timedelta(days=delta_days, hours=delta_hours, minutes=delta_minutes)).replace(second=0, microsecond=0)
+                delta = datetime.timedelta(days=delta_days, hours=delta_hours, minutes=delta_minutes)
+                date = (now + delta).replace(second=0, microsecond=0)
                 phone = f"+7{''.join([str(random.randint(0, 9)) for _ in range(10)])}"
                 bookings.append(Booking.objects.create(table=table, date=date, client_name=name, client_phone=phone))
             except Exception as e:

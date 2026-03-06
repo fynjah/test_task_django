@@ -3,7 +3,7 @@ from pathlib import Path
 
 from decouple import config  # noqa
 
-from config.loggers import LOGGING
+from config.loggers import LOGGING  # noqa: F401
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
@@ -13,7 +13,7 @@ ENVIRONMENT = config("ENVIRONMENT")
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
-DOMAIN = f"http{'s' if config('HTTPS',default=False, cast=bool) else ''}://{ALLOWED_HOSTS[-1]}/"
+DOMAIN = f"http{'s' if config('HTTPS', default=False, cast=bool) else ''}://{ALLOWED_HOSTS[-1]}/"  # noqa: E231
 
 
 INSTALLED_APPS = [

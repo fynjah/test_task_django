@@ -2,7 +2,7 @@ import os
 from django.utils import timezone
 
 now = timezone.now()
-path = f"files/logs/server"
+path = "files/logs/server"
 path += f"/{now.year}"
 
 if not os.path.exists(path):
