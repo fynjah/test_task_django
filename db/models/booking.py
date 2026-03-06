@@ -5,7 +5,7 @@ class Booking(models.Model):
 
     table = models.ForeignKey("db.Table", on_delete=models.CASCADE)
 
-    date = models.DateTimeField(auto_now_add=True, db_index=True)
+    date = models.DateTimeField(db_index=True)
 
     client_name = models.CharField(max_length=255)
 
