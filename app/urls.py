@@ -1,7 +1,8 @@
-from django.urls import path
-from app.views import *
+from django.urls import re_path
+from app.views import LCBookingView, LTableView, index
 
 urlpatterns = [
-    # path("", index),
-    path("", booking),
+    re_path("^$", index),
+    re_path(r"^bookings/$", LCBookingView.as_view()),
+    re_path(r"^tables/$", LTableView.as_view()),
 ]
