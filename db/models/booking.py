@@ -13,3 +13,4 @@ class Booking(models.Model):
 
     class Meta:
         ordering = ('date',)
+        unique_together = ('table', 'date')

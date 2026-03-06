@@ -3,10 +3,12 @@ import datetime
 from django.utils import dateparse
 from rest_framework import generics
 
+from app.serializers import TableSerializer
 from db.models import Table
 
 
 class LTableView(generics.ListAPIView):
+    serializer_class = TableSerializer
 
     def get_queryset(self):
         qs = Table.objects.all()

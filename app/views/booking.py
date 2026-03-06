@@ -7,11 +7,4 @@ class LCBookingView(generics.ListCreateAPIView):
     serializer_class = BookingSerializer
 
     def get_queryset(self):
-        qs = Booking.objects.select_related("table").all()
-        date = self.request.query_params.get("date", None)
-
-        if date:
-            qs = qs.filter(
-                date__gte=date
-            )
-        return qs
+        return Booking.objects.select_related("table").all()
