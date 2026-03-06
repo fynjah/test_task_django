@@ -2,6 +2,7 @@ import datetime
 
 from django.utils import dateparse
 from rest_framework import generics
+from rest_framework.response import Response
 
 from app.serializers import TableSerializer
 from db.models import Table
@@ -22,3 +23,7 @@ class LTableView(generics.ListAPIView):
                 booking__date__range=(start_time, end_time)
             )
         return qs
+
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+        return Response({"tables": response.data})

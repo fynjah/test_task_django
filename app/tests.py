@@ -75,7 +75,7 @@ def test_create_booking_duplicate_fails(client, booking, table):
 def test_list_tables(client, table):
     response = client.get("/tables/")
     assert response.status_code == 200
-    data = response.json()
+    data = response.json()["tables"]
     assert len(data) == 1
     assert data[0]["name"] == "Table 1"
 
@@ -85,7 +85,7 @@ def test_list_tables_excludes_booked(client, booking, table):
     # Стіл зайнятий о 12:00 — запит на 12:30 (в межах ±2год) не повинен його повернути
     response = client.get("/tables/?date=2026-03-06T12:30:00")
     assert response.status_code == 200
-    assert response.json() == []
+    assert response.json()["tables"] == []
 
 
 @pytest.mark.django_db
@@ -93,4 +93,4 @@ def test_list_tables_includes_free(client, booking, table):
     # Стіл зайнятий о 12:00 — запит на 15:00 (поза межами ±2год) повинен його повернути
     response = client.get("/tables/?date=2026-03-06T15:00:00")
     assert response.status_code == 200
-    assert len(response.json()) == 1
+    assert len(response.json()["tables"]) == 1
