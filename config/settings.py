@@ -1,8 +1,9 @@
 import os
-from datetime import datetime
 from pathlib import Path
 
 from decouple import config  # noqa
+
+from config.loggers import LOGGING
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
@@ -23,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "db",
+    "app",
 ]
 
 MIDDLEWARE = [
@@ -108,34 +110,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "files/media")
 MEDIA_URL = "media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-now = datetime.now()
-path = f"files/logs/server"
-path += f"/{now.year}"
-if not os.path.exists(path):
-    os.mkdir(path)
-path += f"/{now.month}"
-if not os.path.exists(path):
-    os.mkdir(path)
-path += f"/{now.day}.log"
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "console": {"format": "LOG_%(levelname)-2s %(name)-12s: %(message)s;"},
-        "file": {"format": "%(asctime)s %(levelname)-2s %(message)s"},
-    },
-    "handlers": {
-        "console": {"class": "logging.StreamHandler", "formatter": "console"},
-        "file": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "formatter": "file",
-            "filename": path,
-        },
-    },
-    "loggers": {"": {"level": "INFO", "handlers": ["console", "file"]}},
-}
 
 PERFORMANCE_TIME = config("PERFORMANCE_TIME", cast=int, default=1)
 PERFORMANCE_COUNT_QUERIES = config("PERFORMANCE_COUNT_QUERIES", cast=int, default=20)
