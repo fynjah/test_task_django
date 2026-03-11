@@ -9,6 +9,9 @@ class BookingSerializer(serializers.ModelSerializer):
     table_id = serializers.PrimaryKeyRelatedField(
         queryset=Table.objects.all(), source="table", write_only=True
     )
+    date = serializers.DateTimeField(read_only=True)
+    client_name = serializers.CharField(read_only=True)
+    client_phone = serializers.CharField(read_only=True)
 
     class Meta:
         fields = '__all__'
